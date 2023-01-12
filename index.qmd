@@ -2,10 +2,7 @@
 title: "ISSS608-VAA"
 ---
 
-This is a Quarto website.
+## ISSS608-VAA
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Welcome to **ISSS608 Visual Analytics and Applications**
 
-```{r}
-1 + 1
-```
