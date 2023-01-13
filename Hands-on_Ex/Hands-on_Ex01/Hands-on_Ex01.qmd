@@ -1,3 +1,179 @@
 ---
-title: "Hands-on_Ex01"
+title: "Hands-on Exercise 1"
+author: "Hou Tao"
 ---
+
+#### Getting Started
+
+##### Install and Launching R packages
+
+The code chunk below use p_load of pacman package to check if tidyverse packages are installed in te environment, it will luanch it into R if it has been installed.
+
+```{r}
+
+pacman::p_load(tidyverse)
+pacman::p_load(ggplot2)
+
+```
+
+##### Importing the data
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv", show_col_types = FALSE)
+```
+
+##### View Math Result using R hist
+
+```{r}
+hist(exam_data$MATHS,
+     main = "Histogram of Maths Exams Result",
+     xlab = "Score",
+     xlim = c(0, 100),
+     ylab = "Count",
+     ylim = c(0, 80),
+     col = "lightblue",
+     freq = TRUE)
+```
+
+##### View Math Result using ggplot
+
+```{r}
+ggplot(data = exam_data, aes(x = MATHS)) + 
+  geom_histogram(bins = 10, 
+                 boundary = 100, 
+                 color = "black",
+                 fill = "lightblue") +
+  labs(title = "Histogram of Exams Result", 
+       subtitle = "Maths",
+       x = "Score",
+       y = "Count")
+```
+
+##### View Math Result using ggplot2 dotplot
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS)) +
+  geom_dotplot(binwidth = 2.5, dotsize = 0.5) +
+  scale_y_continuous(NULL, breaks = NULL)
+  
+```
+
+##### View Math Result using ggplot2 histogram
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins = 20,
+                 color = "black",
+                 fill = "lightblue")
+
+```
+
+##### View Math Result by Gender using ggplot2 histogram
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS, 
+           fill = GENDER)) +
+  geom_histogram(bins = 20,
+                 color = "grey30") 
+
+```
+
+##### View Math Result using ggplot density
+```{r}
+
+ggplot(data = exam_data,
+       aes(x = MATHS, 
+           colour = GENDER)) +
+  geom_density()
+
+```
+
+
+##### View Math Result using ggplot boxplot
+```{r}
+
+ggplot(data = exam_data,
+       aes(y = MATHS, 
+           x = GENDER)) +
+  geom_boxplot()
+
+```
+
+
+##### View Math Result using ggplot notched boxplot
+```{r}
+
+ggplot(data = exam_data,
+       aes(y = MATHS, 
+           x = GENDER)) +
+  geom_boxplot(notch = TRUE)
+
+```
+
+
+##### View Math Result using ggplot boxplot and point
+```{r}
+
+ggplot(data = exam_data,
+       aes(y = MATHS, 
+           x = GENDER)) +
+  geom_boxplot() +
+  geom_point(position = "jitter", size = 0.5)
+
+```
+
+
+##### View Math Result using ggplot violin plot
+
+> 1. violin plot is a hybrid of a box plot and a kernel density plot shows peaks in the data. it can visualize the distribution of numerical data.
+> 
+> 2. violin plot depict summary statistics and the density of each variable.
+> (source: https://mode.com/blog/violin-plot-examples)
+
+```{r}
+ggplot(data = exam_data,
+       aes(y = MATHS, 
+           x = GENDER)) +
+  geom_violin()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
