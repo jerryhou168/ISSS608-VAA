@@ -20,7 +20,8 @@ pacman::p_load(forcats)
 ##### Importing the data
 
 ```{r}
-exam_data <- read_csv("data/Exam_data.csv", show_col_types = FALSE)
+exam_data <- read_csv("data/Exam_data.csv", 
+                      show_col_types = FALSE)
 ```
 
 ##### View Math Result using R hist
@@ -40,14 +41,17 @@ hist(exam_data$MATHS,
 
 ```{r}
 ggplot(data = exam_data, aes(x = MATHS)) + 
+  
   geom_histogram(bins = 10, 
                  boundary = 100, 
                  color = "black",
                  fill = "lightblue") +
+  
   labs(title = "Histogram of Exams Result", 
        subtitle = "Maths",
        x = "Score",
        y = "Count") +
+  
   theme_bw()
 ```
 
@@ -298,10 +302,19 @@ ggplot(data = exam_data, aes(x = RACE)) +
 
 ##### Working with theme: View Race in Bar chart in horizontal form
 ```{r}
-p <- ggplot(data = exam_data, aes(x = RACE)) +
+p <- ggplot(data = exam_data, 
+            aes(x = RACE)) +
+
       geom_bar() + 
+  
       coord_flip()
-p + theme(panel.background = element_rect(fill = "lightblue", colour = NULL))
+
+p + theme(panel.background = 
+            element_rect(
+              fill = "lightblue", 
+              colour = NULL
+            )
+          )
 
 ```
 
@@ -316,10 +329,18 @@ exam_data %>%
   ggplot((aes(x = RACE))) +
   geom_bar() +
   
-  geom_text(aes(label = sprintf('%d (%s)', ..count.., pct_format(..count.. / sum(..count..)))),
+  geom_text(aes(label = sprintf(
+                            '%d (%s)', 
+                            after_stat(count), 
+                            pct_format(
+                              after_stat(count) / sum(after_stat(count))
+                              )
+                            )
+                ),
             stat="count",
             nudge_y = 8 ) +
-  labs(title = "No. of Pupils by Race in Exam Results", y="No. of Pupils") 
+  labs(title = "No. of Pupils by Race in Exam Results", 
+       y="No. of Pupils") 
   
 
 ```
@@ -334,10 +355,18 @@ exam_data %>%
   ggplot((aes(x = RACE))) +
   geom_bar(aes(fill = RACE), show.legend = TRUE) +
   
-  geom_text(aes(label = sprintf('%d (%s)', ..count.., pct_format(..count.. / sum(..count..)))),
+  geom_text(aes(label = sprintf(
+                          '%d (%s)', 
+                          after_stat(count), 
+                          pct_format(
+                            after_stat(count) / sum(after_stat(count))
+                          )
+                        )
+                ),
             stat="count",
             nudge_y = 8 ) +
-  labs(title = "No. of Pupils by Race in Exam Results", y="No. of Pupils") 
+  labs(title = "No. of Pupils by Race in Exam Results", 
+       y="No. of Pupils") 
   
 
 ```
@@ -347,9 +376,19 @@ exam_data %>%
 
 ```{r}
 ggplot(data = exam_data, aes(x = MATHS)) +
+
   geom_histogram(bins = 20, color = "black", fill="lightblue") +
-  geom_vline(xintercept = mean(exam_data$MATHS), linetype="dashed", linewidth=1, colour="red") + 
-  geom_vline(xintercept = median(exam_data$MATHS), linetype="dashed", linewidth=1, colour="black") + 
+  
+  geom_vline(xintercept = mean(exam_data$MATHS), 
+             linetype="dashed", 
+             linewidth=1, 
+             colour="red") + 
+  
+  geom_vline(xintercept = median(exam_data$MATHS), 
+             linetype="dashed", 
+             linewidth=1, 
+             colour="black") + 
+  
   theme_bw()
 
 ```
@@ -359,22 +398,37 @@ ggplot(data = exam_data, aes(x = MATHS)) +
 
 ```{r}
 ggplot(data = exam_data, aes(x = ENGLISH)) +
-  geom_histogram(data = exam_data["ENGLISH"], bins = 20, fill="lightgrey", alpha=0.5) +
-  geom_histogram(aes(fill=GENDER), col="black", bins = 20) +
-    facet_grid(cols = vars(GENDER)) + 
-      theme_bw()
+  geom_histogram(data = exam_data["ENGLISH"], 
+                 bins = 20, 
+                 fill="lightgrey", 
+                 alpha=0.5) +
+  geom_histogram(aes(fill=GENDER), 
+                 col="black", 
+                 bins = 20) +
+  facet_grid(cols = vars(GENDER)) + 
+  theme_bw()
 ```
 
 ##### Designing Data-drive Graphics for Analysis - fixed reference lines on scatterplot 
 
 ```{r}
 ggplot(data = exam_data,
-       aes(x = MATHS, 
-           y = ENGLISH)) +
+       aes(x = MATHS, y = ENGLISH)) +
+  
   geom_point() + 
-  geom_vline(xintercept = mean(50), linetype="dashed", linewidth=1, colour="grey") +
-  geom_hline(yintercept = mean(50), linetype="dashed", linewidth=1, colour="grey") + 
-  coord_cartesian(xlim = c(0, 100), ylim = c(0, 100)) + 
+  
+  geom_vline(xintercept = mean(50), 
+             linetype="dashed", 
+             linewidth=1, 
+             colour="grey") +
+  
+  geom_hline(yintercept = mean(50), 
+             linetype="dashed", 
+             linewidth=1, 
+             colour="grey") + 
+  
+  coord_cartesian(xlim = c(0, 100), 
+                  ylim = c(0, 100)) + 
   theme_bw()
 
 ```
@@ -383,12 +437,23 @@ ggplot(data = exam_data,
 
 ```{r}
 ggplot(data = exam_data,
-       aes(x = MATHS, 
-           y = ENGLISH)) +
+       aes(x = MATHS, y = ENGLISH)) +
+  
   geom_point() + 
-  geom_vline(xintercept = mean(exam_data$MATHS), linetype="dashed", linewidth=1, colour="grey") +
-  geom_hline(yintercept = mean(exam_data$ENGLISH), linetype="dashed", linewidth=1, colour="grey") +
-  coord_cartesian(xlim = c(0, 100), ylim = c(0, 100)) + 
+  
+  geom_vline(xintercept = mean(exam_data$MATHS), 
+             linetype="dashed", 
+             linewidth=1, 
+             colour="grey") +
+  
+  geom_hline(yintercept = mean(exam_data$ENGLISH), 
+             linetype="dashed", 
+             linewidth=1, 
+             colour="grey") +
+  
+  coord_cartesian(xlim = c(0, 100), 
+                  ylim = c(0, 100)) + 
+  
   theme_bw()
 
 ```
