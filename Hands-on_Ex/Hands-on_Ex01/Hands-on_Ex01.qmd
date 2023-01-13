@@ -3,7 +3,7 @@ title: "Hands-on Exercise 1"
 author: "Hou Tao"
 ---
 
-#### Getting Started
+## Getting Started
 
 ##### Install and Launching R packages
 
@@ -243,6 +243,9 @@ ggplot(data = exam_data,
     facet_grid(cols = vars(CLASS)) + 
   theme_bw()
 ```
+
+## Working with facet
+
 ##### Working with facet: View Maths Exam Result by Gender and Class using facet_grid()
 
 ```{r}
@@ -291,6 +294,8 @@ ggplot(data = exam_data, aes(x = RACE)) +
 
 ```
 
+## Working with theme
+
 ##### Working with theme: View Race in Bar chart in horizontal form
 ```{r}
 p <- ggplot(data = exam_data, aes(x = RACE)) +
@@ -300,6 +305,7 @@ p + theme(panel.background = element_rect(fill = "lightblue", colour = NULL))
 
 ```
 
+## Designing Data-drive Graphics for Analysis
 
 ##### Designing Data-drive Graphics for Analysis - View Race in Bar chart in vertical form
 ```{r}
